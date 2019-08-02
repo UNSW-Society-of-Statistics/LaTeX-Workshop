@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{microtype}
+\usepackage{parskip}
+
+\title{My Homework}
+\author{Nick}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Given the following probability density function:
+
+\begin{equation}
+    f_X(x)=\int^\infty_{-\infty}\frac{\alpha^{-x^2}}{\beta}\;dx
+\end{equation}
+
+Find $\mathbb{P}(X>4)$.
+
+Note that:
+
+\begin{align*}
+    f_X(x) & = \int^\infty_{-\infty}\frac{\alpha^{-x^2}}{\beta}\;dx \\
+           & = \frac{1}{\beta}\int^\infty_{-\infty}\alpha^{-x^2}\;dx
+\end{align*}
+
+Testing some matrices:
+
+\[
+    \mathbf{a} = \begin{pmatrix}
+        1 \\
+        2 \\
+        3
+    \end{pmatrix}
+\]
+
+\[
+    A = \begin{bmatrix}
+        1 & 2 \\
+        3 & 4
+    \end{bmatrix}
+\]
+
+And a piecewise function:
+
+\[
+    f(x)=\begin{cases}
+        1 & \text{if }x\in\mathbb{Q} \\
+        0 & \text{otherwise}
+    \end{cases}
+\]
+
+\end{document}

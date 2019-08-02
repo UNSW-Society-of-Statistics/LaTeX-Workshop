@@ -1,0 +1,449 @@
+\documentclass{beamer}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{microtype}
+
+\usepackage{parskip}
+
+\usepackage{graphicx}
+\usepackage{listings}
+
+\lstset{
+	frame=single,
+	basicstyle=\tiny\ttfamily,
+	tabsize=2
+}
+
+\usetheme{Boadilla}
+\usecolortheme{spruce}
+\usefonttheme[onlymath]{serif}
+
+\author[Nick]{Nicholas Berridge-Argent}
+\institute[StatSoc]{UNSW Society of Statistics}
+\title{\LaTeX{} Workshop}
+\date{2019}
+
+\logo{\includegraphics[width=4cm]{statsoc.png}}
+
+\begin{document}
+
+\AtBeginSection[]{
+	\begin{frame}
+		\frametitle{Schedule}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		{\Huge{}``This is not a \LaTeX{} course''}
+
+		\hspace*{4cm}-- \textit{every course using \LaTeX}
+	\end{center}
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+	\frametitle{History}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{footnotesize}
+				\begin{itemize}
+					\item Donald Knuth was writing the second edition of his book \textit{The Art of Computer Programming} in 1977, when he found that the typesetting used by the publishers was inferior.
+					\item As you do, invented a markup language for typesetting called TeX, which was eventually used around the world for typesetting academic documents.
+					\item These days, \LaTeX{} forms the most commonly-used extension to plain TeX. Industry-standard for academic documents in mathematics, statistics, computer science, physics, etc.
+				\end{itemize}
+			\end{footnotesize}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{center}
+				\includegraphics[width=4cm]{knuth.jpg}
+				% image source: wikimedia
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Environments}
+	\begin{itemize}
+		\item \textbf{Overleaf} --- fully online, compiles in real time. UNSW Students get free Overleaf Pro account with their UNSW e-mail.
+		\item \textbf{TeX Live} --- can be installed on your computer, so no size limits, requires no online access. \textbf{But!} takes a long time to download, takes some skill to set up packages, needs you to compile \LaTeX{} manually. Available for Windows and Linux, Mac users use \textbf{MacTeX}.
+		\item \textbf{MiKTeX} --- Alternative to TeX Live for Windows, Linux and Mac.
+		\item \textbf{Microsoft Word} --- Not even once... (although the Word equation editor uses TeX-like syntax under the hood)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Getting Started}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{center}
+				\lstinputlisting{examples/hello.tex}
+			\end{center}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{center}
+				\textrm{Hello, \LaTeX{}!}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Getting Started II}
+	\begin{columns}
+		\begin{column}{0.48\textwidth}
+			\begin{center}
+				\lstinputlisting{examples/maths.tex}
+			\end{center}
+		\end{column}
+		\begin{column}{0.48\textwidth}
+			\begin{center}
+				\[
+					\sum^n_{k=1}k^2=\frac{n}{6}(2n+1)(n+1)
+				\]
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\section{Document Setup and Text}
+
+\begin{frame}
+	\frametitle{The Preamble}
+	\begin{itemize}
+		\item (Relatively) small section of code for setting the document class, metadata, setting up packages.
+		\item \texttt{\textbackslash{}documentclass} --- declares the type of document and sets up a bunch of formatting, most common is \texttt{article}.
+		\item \texttt{\textbackslash{}usepackage} --- includes useful packages, most documents have several.
+		\item \texttt{\textbackslash{}title}, \texttt{\textbackslash{}author}, \texttt{\textbackslash{}date} --- used to set document metadata.
+		\item See example \texttt{theorem.tex}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The \texttt{geometry} Package}
+	\begin{itemize}
+		\item Default paper size in \LaTeX{} is US Letter (215.9 $\times$ 279.4 mm) rather than A4 (210 $\times$ 297 mm).
+		\item The margins are set to be enormous based on readability studies, but you may want to change those too.
+		\item We can use the package \texttt{geometry} for this:\\\texttt{\textbackslash{}usepackage[a4paper,margin=3cm]\{geometry\}}
+		\item Unrelated to the \texttt{geometry} package, but we can also use two columns with:\\\texttt{\textbackslash{}documentclass[twocolumn]\{article\}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Metadata}
+	\begin{itemize}
+		\item Some document metadata can be set in the preamble, then used throughout the document e.g. by the \texttt{\textbackslash{}maketitle} command.
+		\item \texttt{\textbackslash{}title} --- Sets document title:\\\texttt{\textbackslash{}title\{I Like Statistics\}}.
+		\item \texttt{\textbackslash{}author} --- Sets document author(s):\\\texttt{\textbackslash{}author\{Nicholas Berridge-Argent\textbackslash\textbackslash{}z5208292\}}
+		\item \texttt{\textbackslash{}date} --- Sets the date the document was made:\\\texttt{\textbackslash{}date\{\textbackslash{}today\}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Essential Packages}
+	\begin{itemize}
+		\item \texttt{amsmath} and \texttt{amssymb} --- \textbf{very} useful for mathematical typesetting, adds a lot of extra useful environments and symbols.
+		\item \texttt{microtype} --- Adjusts fonts to improve readability.
+		\item \texttt{parskip} --- Removes indentation at the start of paragraphs (personal preference).
+		\item See example \texttt{theorem-improved.tex}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sections and Subsections}
+	\begin{itemize}
+		\item Sometimes useful to separate a document into several sections.
+		\item For this we have \texttt{\textbackslash{}section}, \texttt{\textbackslash{}subsection}, \texttt{\textbackslash{}subsubsection}, \dots
+		\item Can be used with an asterisk: \texttt{\textbackslash{}section*} to suppress numbering.
+		\item Other document classes provide other forms of sectioning, e.g. \texttt{book} provides \texttt{\textbackslash{}chapter}.
+		\item Can be used with \texttt{hyperref} package to add links in a PDF viewer.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Other Sections}
+	\begin{itemize}
+		\item We saw before we can add a small abstract with \texttt{abstract}.
+		\item We can also define proof / theorem / lemma environments with \texttt{\textbackslash{}newtheorem}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Lists}
+	\begin{itemize}
+		\item Un-numbered lists, such as the one you're reading now, can be made with \texttt{itemize}.
+		\item Numbered lists can be made with \texttt{enumerate}.
+		\item Lists can be nested inside each other.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Styling Text}
+	\begin{itemize}
+		\item Text can be made bold or italic with \texttt{\textbackslash{}textbf} and \texttt{\textbackslash{}textit}.
+		\item \LaTeX{} supports three default fonts: \textrm{roman}, sans-serif and \texttt{typewriter}.
+		\item Change font temporarily with \texttt{\textbackslash{}textrm}, \texttt{\textbackslash{}textsf}, \texttt{\textbackslash{}texttt}.
+		\item Change font for whole document in the preamble with \texttt{\textbackslash{}renewcommand\{\textbackslash{}rmdefault\}}, etc.
+		\item Can also change font size: \texttt{\textbackslash{}tiny}, \texttt{\textbackslash{}large}, \texttt{\textbackslash{}Huge}, etc.
+		\item Can also use \texttt{\textbackslash{}textsuperscript} for superscript, e.g. 1\textsuperscript{st}.
+		\item See example \texttt{theorem-final.tex}
+	\end{itemize}
+\end{frame}
+
+\section{Equations and Maths}
+
+\begin{frame}
+	\frametitle{Basic Equations and Symbols}
+	\begin{itemize}
+		\item Use \texttt{\textbackslash{}(\dots\textbackslash{})} or \texttt{\$\dots\$} for inline equations.
+		\item Use \texttt{\textbackslash{}[\dots\textbackslash{}]} or \texttt{\$\$\dots\$\$} for block equations.
+		\item Most normal symbols are available just as-is: e.g. \texttt{(3x+2)\^{}2=0} becomes $(3x+2)^2=0$.
+		\item Greek letters are available by a backslash followed by their name, e.g. \texttt{\textbackslash{}alpha} becomes $\alpha$.
+		\item Fractions are available using \texttt{\textbackslash{}frac}, e.g. \texttt{\textbackslash{}frac\{\textbackslash{}pi\}\{6\}} becomes $\frac{\pi}{6}$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Basic Equations and Symbols}
+	\begin{itemize}
+		\item Sums are available with \texttt{\textbackslash{}sum}, e.g.\\\texttt{\textbackslash{}sum\^{}n\_\{k=1\}3\^{}\{-k\}} becomes $\sum^n_{k=1}3^{-k}$.
+		\item Integrals are available with \texttt{\textbackslash{}int}, e.g.\\\texttt{\textbackslash{}int\^{}\textbackslash{}infty\_\{-\textbackslash{}infty\}e\^{}\{-x\^{}2\}\textbackslash{};dx} becomes $\int^\infty_{-\infty}e^{-x^2}\;dx$.
+		\item Special mathematical typefaces are available, e.g. \texttt{\textbackslash{}mathcal\{P\}} becomes $\mathcal{P}$ and \texttt{\textbackslash{}mathbb\{R\}} becomes $\mathbb{R}$.
+		\item See example \texttt{homework.tex}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dilemma!}
+		\begin{center}
+			\lstinputlisting{examples/sin-beginner.tex}
+			\[
+				sin(x+(\frac{\pi}{2})^n)
+			\]
+		\end{center}
+
+		\textbf{Problem:} The sine function is appearing in italics, and the brackets aren't sized properly to the fraction.
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Solution}
+		\begin{center}
+			\lstinputlisting{examples/sin-fixed.tex}
+			\[
+				\sin\left(x+\left(\frac{\pi}{2}\right)^n\right)
+			\]
+		\end{center}
+
+		\textbf{Solution:} Most functions have a built in command form, and \texttt{\textbackslash{}left} and \texttt{\textbackslash{}right} will automatically size brackets.
+
+		If your function doesn't have a command, you can use \texttt{\textbackslash{}text}, e.g. \texttt{\textbackslash{}text\{cis \}(\textbackslash{}pi/2)} becomes $\text{cis }(\pi/2)$, make sure to include the space inside the \texttt{\textbackslash{}text} command for spacing.
+\end{frame}
+
+\begin{frame}
+	\frametitle{AMSMath Equation Environments}
+	\begin{itemize}
+		\item \texttt{equation} provides an enviroment similar to a block equation, but with a unique number on the right-hand margin, useful to refer to multiple equations in text.
+		\item \texttt{align} and \texttt{align*} (no numbering) provide block equations which can have multiple lines, aligned at a certain position, useful for showing long streams of working out.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Environments for Maths Mode}
+	\begin{itemize}
+		\item \texttt{pmatrix} is useful for setting up vectors and matrices.
+		\item \texttt{bmatrix} can also be used for matrices.
+		\item \texttt{cases} is useful for piecewise functions.
+		\item See example \texttt{homework-2.tex}
+	\end{itemize}
+\end{frame}
+
+\section{Tables and Images}
+
+\begin{frame}
+	\frametitle{Tables and Images}
+	\begin{itemize}
+		\item Motto of tables in \LaTeX{}: Just use \texttt{booktabs}.
+		\item Tables are an environment, \texttt{tabular}, which is set up with specifications for the columns.
+		\item Horizontal rules can be used to separate rows.
+		\item Vertical rules can be used to separate columns, but please don't.
+		\item Different column types available: \texttt{l}, \texttt{c}, \texttt{r}, \texttt{p}.
+		\item Images can be inserted using the \texttt{graphicx} package.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Figures}
+	\begin{itemize}
+		\item It is often useful to control the positioning of images and tables, and to give them captions.
+		\item We can use the \texttt{figure} and \texttt{table} environments for this.
+		\item Takes an optional position specifier: \texttt{h}, \texttt{t}, \texttt{b}, \texttt{p}.
+		\item Usually useful with the \texttt{\textbackslash{}centering} command or \texttt{center} environment.
+		\item Can be combined with a \texttt{\textbackslash{}caption}.
+		\item See example \texttt{report.tex}
+	\end{itemize}
+\end{frame}
+
+\section{Graphs and Diagrams}
+
+\begin{frame}
+	\frametitle{Graphs with PGFPlots}
+	\begin{itemize}
+		\item \LaTeX{} is good for typesetting paragraphs, equations. Not so good for describing graphs.
+		\item We need an entirely new set of commands for describing graphs --- PGFPlots.
+		\item Can graph raw data (e.g. scatter plots) or mathematical functions.
+		\item Can be combined with ``PGF libraries'' to plot graphs more easily.
+		\item Can we do 3D graphs too? \textbf{Yes!}
+		\item See example \texttt{report-graph.tex}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Graphs with PGFPlots}
+	\begin{itemize}
+		\item Inside a \texttt{tikzpicture} environment, have an \texttt{axis} environment.
+		\item Use \texttt{\textbackslash{}addplot} to add a plot based on a function, or with \texttt{table} to add a scatterplot.
+		\item Use \texttt{\textbackslash{}addlegendentry} to add a reference to that to the legend.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Graphs with PGFPlots}
+	\begin{itemize}
+		\item What's the best way to learn the right syntax?
+		\item Google.
+		\item Doesn't this take a long time?
+		\item Yes, feel free to use \texttt{gnuplot}, RStudio, LibreOffice Calc, Microsoft Excel, etc. and \texttt{\textbackslash{}includegraphics}.
+		\item But, if you want your documents to look \textbf{really} nice\dots
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Diagrams with TikZ}
+	\begin{itemize}
+		\item \LaTeX{} is good for typesetting paragraphs, equations. Not so good for describing diagrams.
+		\item We need an entirely new set of commands for describing diagrams --- TikZ.
+		\item Uses simple drawing commands to draw simple shapes.
+		\item Can be combined with ``TikZ packages'' to draw complicated diagrams more easily.
+		\item As before, you can use another software package which generates images and \texttt{\textbackslash{}includegraphics}, but you won't get the best looking document possible.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Diagrams with TikZ}
+	\begin{itemize}
+		\item Again use a \texttt{tikzpicture} environment.
+		\item Use \texttt{\textbackslash{}draw} to draw outlines, \texttt{\textbackslash{}filldraw} to draw filled shapes.
+		\item Mostly based on co-ordinates, but can add shapes e.g. circles.
+		\item Use \texttt{\textbackslash{}node} to add text.
+		\item See example \texttt{report-diagram.tex}
+	\end{itemize}
+\end{frame}
+
+\section{Extra Document Features}
+
+\begin{frame}
+	\frametitle{Table of Contents}
+	\begin{itemize}
+		\item Very long documents can be hard to nagivate.
+		\item Can also be very long to type up a table of contents by hand.
+		\item Document is already populated with \texttt{\textbackslash{}section}s, \texttt{\textbackslash{}subsection}s, etc.
+		\item We can automatically generate a table of contents based on that.
+		\item Sometimes takes 2--3 goes to compile the document.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Headers and Footers}
+	\begin{itemize}
+		\item Some assignments specifically require you to add a header and footer.
+		\item Other times it can just make your document look very nice.
+		\item Using the package \texttt{fancyhdr} you can style custom headers and footers.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Section Titles}
+	\begin{itemize}
+		\item The default look of section, subsection headings can be a bit boring.
+		\item You might want to use alternative counters e.g. roman numerals.
+		\item Using the package \texttt{titlesec} you can style custom section titles.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Links and References}
+	\begin{itemize}
+		\item As mentioned before, \texttt{hyperref} can add links to a document in a PDF viewer.
+		\item Can also make e.g. a table of contents clickable.
+		\item Can \textbf{also} add clickable hyperlinks to web pages.
+		\item Quickest way to add references: \texttt{\textbackslash{}footnote}.
+		\item Better way to add references: \texttt{thebibliography} environment.
+		\item Automatically manages references in the text and adds a bibliography at the end.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Extra page styling}
+	\begin{itemize}
+		\item Sometimes a page contains a wide table or graph, and could be made landscape. Enter: \texttt{pdflscape}.
+		\item Sometimes you want to add colours to text (even in equations!). Enter: \texttt{xcolor}.
+		\item What about extra fonts? We can add some extra fonts as packages, however, they may not support all characters\dots
+		\item Using XeTeX (another set of TeX macros similar to \LaTeX{}) we can use \textbf{any} true-type font, but the drawbacks are the same.
+		\item In general: just use the default fonts. You can use sans-serif maths in the default font, if you're one of those people.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Miscellaneous Syntax}
+	\begin{itemize}
+		\item In the preamble, \texttt{\textbackslash{}renewcommand} will let you define custom commands! \textbf{Very} useful to avoid repeating yourself.
+		\item Comments can be added with \texttt{\%} to explain tricky syntax.
+	\end{itemize}
+\end{frame}
+
+\section{Source Code Listings, Presentations}
+
+\begin{frame}
+	\frametitle{Source Code Listings}
+	\begin{itemize}
+		\item For computer scientists, or people who like code, you may want to include source code into your documents e.g. in an appendix.
+		\item Not just as simple as using \texttt{\textbackslash{}texttt}, you want a specific package for that, \texttt{listings}.
+		\item Allows for basic syntax highlighting, but not with the typewriter font :( since it doesn't have a bold weight.
+		\item For algorithms, ideally use a different package e.g. \texttt{algorithm2e}.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Presentations}
+	\begin{itemize}
+		\item The formatting for presentations is \textbf{very} different to the formatting for articles and books.
+		\item But, it would be convenient to be able to use the same typesetting e.g. for equations in a presentation.
+		\item Academics often need to create a presentation to convey the same ideas they would in an article.
+		\item We can use the package \texttt{beamer} for this (although it's really a document class).
+		\item See example: this presentation! \texttt{presentation.tex}
+	\end{itemize}
+\end{frame}
+
+\section{Where To Next?}
+
+\begin{frame}
+	\frametitle{Where To Next?}
+	\begin{itemize}
+		\item Obviously, this workshop was just a start!
+		\item Official package documentation on CTAN: \texttt{https://www.ctan.org/pkg}.
+		\item More tutorials on Overleaf website: \texttt{https://www.overleaf.com/learn} and Wikibooks: \texttt{https://en.wikibooks.org/wiki/LaTeX}.
+		\item \LaTeX{} Stack Exchange for questions \& answers: \texttt{https://tex.stackexchange.com/}.
+		\item OEIS has a list of symbols: \texttt{https://oeis.org/wiki/List\_of\_LaTeX\_mathematical\_symbols}.
+		\item Slides and examples will be made available on the StatSoc website: \texttt{https://statsoc.unsw.edu.au/}.
+	\end{itemize}
+\end{frame}
+
+\end{document}
